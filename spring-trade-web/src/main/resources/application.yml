@@ -1,0 +1,13 @@
+#数据库配置
+spring:
+ datasource:
+    url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: shangxiaofei
+    coresize: 60
+    maxsize: 60
+    dirverclassname: com.mysql.jdbc.Driver
+
+#和mybatis整合
+mybatis:
+  mapper-locations: classpath:mapper/*/*.xml

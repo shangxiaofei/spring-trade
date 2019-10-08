@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<!--父项目声明-->
+	<parent>
+		<groupId>com.sxf.study</groupId>
+		<artifactId>spring-trade</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+
+	<!--自身坐标-->
+	<groupId>com.spring.sxf.study</groupId>
+	<artifactId>spring-trade-web</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>spring-trade-web</name>
+	<packaging>jar</packaging>
+	<description>Demo project for Spring Boot</description>
+
+	<properties>
+		<java.version>1.8</java.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.spring.sxf.study</groupId>
+			<artifactId>spring-trade-service</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<!--spring-boot默认使用slf4j+logback进行日志记录,则排除，使用log4j2-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<!--引入log4j2启动日志打印-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-log4j2</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+
+	<!--配置各个环境的信息-->
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<properties>
+				<profiles.active>dev</profiles.active>
+			</properties>
+			<!--当执行项目打包时,未传递环境信息,则默认使用该配置-->
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+		</profile>
+		<profile>
+			<id>pro</id>
+			<properties>
+				<profiles.active>pro</profiles.active>
+			</properties>
+		</profile>
+	</profiles>
+
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<!--项目打包需要将resources目录下的这些文件排除掉-->
+				<excludes>
+					<exclude>dev/*</exclude>
+					<exclude>pro/*</exclude>
+				</excludes>
+			</resource>
+			<resource>
+				<!--将指定的配置文件移动到resources目录下-->
+				<directory>src/main/resources/${profiles.active}</directory>
+			</resource>
+		</resources>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

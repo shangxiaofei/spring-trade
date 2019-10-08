@@ -1,0 +1,51 @@
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <context id="MySQLTables" targetRuntime="MyBatis3">
+        <!-- 生成的Java文件的编码 -->
+        <property name="javaFileEncoding" value="UTF-8"/>
+        <!-- 格式化java代码 -->
+        <property name="javaFormatter" value="org.mybatis.generator.api.dom.DefaultJavaFormatter"/>
+        <!-- 格式化XML代码 -->
+        <property name="xmlFormatter" value="org.mybatis.generator.api.dom.DefaultXmlFormatter"/>
+
+        <!--生成toString-->
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
+
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/test?auto_commit=false&amp;charset=UTF8&amp;zeroDateTimeBehavior=convertToNull"
+                        userId="root"
+                        password="shangxiaofei" />
+        <!--生成的model 包路径 -->
+        <javaModelGenerator targetPackage="com.spring.sxf.study.springtradedao.entry"
+                            targetProject="src/main/java">
+            <!-- enableSubPackages:是否让schema作为包的后缀 -->
+            <property name="enableSubPackages" value="false"/>
+            <!-- 从数据库返回的值被清理前后的空格 -->
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <!--生成xml mapper文件 路径 -->
+        <sqlMapGenerator targetPackage="mapper/generated" targetProject="src/main/resources">
+            <property name="enableSubPackages" value="false"/>
+        </sqlMapGenerator>
+
+        <!-- 生成的Dao接口 的包路径 -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.spring.sxf.study.springtradedao.mapper"
+                             targetProject="src/main/java">
+            <property name="enableSubPackages" value="false"/>
+        </javaClientGenerator>
+
+        <!--配置表 -->
+        <table tableName="t_blog" domainObjectName="Blog"
+               enableCountByExample="true" enableUpdateByExample="true"
+               enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+            <columnOverride column="name" property="name" javaType="java.lang.String" jdbcType="VARCHAR"></columnOverride>
+            <columnOverride column="context" property="context" javaType="java.lang.String" jdbcType="VARCHAR" ></columnOverride>
+            <columnOverride column="createDateTime" property="createDateTime" javaType="java.util.Date" jdbcType="TIMESTAMP" ></columnOverride>
+        </table>
+    </context>
+</generatorConfiguration>

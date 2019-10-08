@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+configuration 节点的属性:
+status:用来指定log4j本身的打印日志的级别.
+monitorinterval:用于指定log4j自动重新配置的监测间隔时间，单位是s,最小是5s.
+-->
+<!--
+日志级别以及优先级排序: OFF > FATAL > ERROR > WARN > INFO > DEBUG > TRACE > ALL
+-->
+
+<configuration status="DEBUG" monitorinterval="60">
+    <!--声明属性-->
+    <Properties>
+        <!--这里的log.path是定义日志存放的地方，此处是存放于项目根路径下的/Users/shangxiaofei文件夹中-->
+        <Property name="log.path">/Users/shangxiaofei</Property>
+    </Properties>
+
+    <!--声明日志输出位置-->
+    <Appenders>
+
+        <!--
+            Console节点用来定义输出到控制台的Appender
+            name : 指定Appender的名字，用于Logger节点引用
+            target : SYSTEM_OUT 或 SYSTEM_ERR,一般设置为:SYSTEM_OUT
+            PatternLayout : 指定日志输出格式，默认为%m%n
+        -->
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] [%t] - %l - %m%n"/>
+        </Console>
+
+
+        <!--
+            File节点用来定义输出到指定位置的文件
+            name:指定Appender的名字.
+　　　　　　　 fileName:指定输出日志的目的文件带全路径的文件名.
+　　　　　　　 PatternLayout:输出格式，不设置默认为:%m%n.
+        -->
+        <File name="LogFile" fileName="${log.path}/spring-trade.log">
+            <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] [%t] - %l - %m%n"/>
+        </File>
+
+
+        <!--
+           RollingFile 节点用来定义超过指定大小自动删除旧的创建新的的Appender
+           name:指定Appender的名字.
+           fileName:指定输出日志的目的文件带全路径的文件名.
+           PatternLayout:输出格式，不设置默认为:%m%n.
+           filePattern:指定新建日志文件的名称格式.
+           Policies:指定滚动日志的策略，就是什么时候进行新建日志文件输出日志.
+           ThresholdFilter : 日志过滤器
+           TimeBasedTriggeringPolicy:Policies子节点，基于时间的滚动策略，interval属性用来指定多久滚动一次，默认是1 hour。modulate=true用来调整时间：比如现在是早上3am，interval是4，那么第一次滚动是在4am，接着是8am，12am...而不是7am.
+           SizeBasedTriggeringPolicy:Policies子节点，基于指定文件大小的滚动策略，size属性用来定义每个日志文件的大小.
+           DefaultRolloverStrategy:用来指定同一个文件夹下最多有几个日志文件时开始删除最旧的，创建新的(通过max属性)。
+        -->
+        <RollingFile name="RollingFile" fileName="${log.path}/spring-trade-rolling.log"
+                     filePattern="${log.path}/logs/${date:yyyy-MM}/info-%d{yyyy-MM-dd}.log.zip">
+            <!--只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch） DENY，NEUTRAL，ACCEPT-->
+            <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] [%t] - %l - %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy modulate="true" interval="1"/>
+            </Policies>
+        </RollingFile>
+    </Appenders>
+
+
+    <!--
+       Root节点用来指定项目的根日志，如果没有单独指定Logger，那么就会默认使用该Root日志输出
+              level:日志输出级别，共有8个级别，按照从低到高为：All < Trace < Debug < Info < Warn < Error < Fatal < OFF.
+              AppenderRef：Root的子节点，用来指定该日志输出到哪个Appender.
+
+　　　　Logger节点用来单独指定日志的形式，比如要为指定包下的class指定不同的日志级别等。
+              level:日志输出级别，共有8个级别，按照从低到高为：All < Trace < Debug < Info < Warn < Error < Fatal < OFF.
+              name:用来指定该Logger所适用的类或者类所在的包全路径,继承自Root节点.
+              AppenderRef：Logger的子节点，用来指定该日志输出到哪个Appender,如果没有指定，就会默认继承自Root.如果指定了，那么会在指定的这个Appender和Root的Appender中都会输出，此时我们可以设置Logger的additivity="false"只在自定义的Appender中进行输出。
+    -->
+    <Loggers>
+        <!--过滤掉spring和mybatis的一些无用的DEBUG信息-->
+        <logger name="org.springframework" level="INFO"/>
+        <logger name="org.mybatis" level="INFO"/>
+        <logger name="com.spring" level="INFO"/>
+
+        <root level="info">
+            <appender-ref ref="Console"/>
+            <appender-ref ref="LogFile"/>
+            <appender-ref ref="RollingFile"/>
+        </root>
+    </Loggers>
+</configuration>

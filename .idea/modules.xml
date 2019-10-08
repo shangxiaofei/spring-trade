@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/spring-trade.iml" filepath="$PROJECT_DIR$/spring-trade.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spring-trade-dao/spring-trade-dao.iml" filepath="$PROJECT_DIR$/spring-trade-dao/spring-trade-dao.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spring-trade-service/spring-trade-service.iml" filepath="$PROJECT_DIR$/spring-trade-service/spring-trade-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spring-trade-web/spring-trade-web.iml" filepath="$PROJECT_DIR$/spring-trade-web/spring-trade-web.iml" />
+    </modules>
+  </component>
+</project>
