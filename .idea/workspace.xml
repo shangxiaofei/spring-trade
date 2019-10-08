@@ -4,7 +4,9 @@
     <bookmark url="file://$PROJECT_DIR$/spring-trade-web/src/main/java/com/spring/sxf/study/springtradeweb/controller/BlogController.java" line="68" mnemonic="0" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0ac76e43-17c0-4b9f-825c-17704087ed58" name="Default" comment="" />
+    <list default="true" id="0ac76e43-17c0-4b9f-825c-17704087ed58" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+    </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
     <ignored path="$PROJECT_DIR$/spring-trade-dao/target/" />
@@ -503,12 +505,12 @@
       <workItem from="1569578847897" duration="429000" />
       <workItem from="1569579305710" duration="1858000" />
       <workItem from="1570501484597" duration="1000" />
-      <workItem from="1570501495849" duration="17882000" />
+      <workItem from="1570501495849" duration="18412000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="46189000" />
+    <option name="totallyTimeSpent" value="46719000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
